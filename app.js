@@ -17,6 +17,7 @@ const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 
 const app = express();
+app.use(cookieParser());
 
 // Setting pug template engine for express
 app.set('view engine', 'pug');
@@ -58,7 +59,6 @@ app.use('/api', limiter);
 // Body parser, reading data from the body into req.body in json format
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
-app.use(cookieParser());
 
 // Data sanitaization against NoSQL query injection
 //
