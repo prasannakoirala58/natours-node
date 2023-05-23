@@ -52,7 +52,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   console.log(newUser);
 
   const url = `${req.protocol}://${req.get('host')}/me`;
-  // console.log(url);
+  console.log(url);
   await new Email(newUser, url).sendWelcome();
 
   createSendToken(newUser, 201, req, res);
@@ -185,11 +185,11 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   ignore this email`;
 
   try {
-    await sendEmail({
-      email: user.email,
-      subject: 'Your password reset token (valid for 10 minutes)',
-      message,
-    });
+    // await sendEmail({
+    //   email: user.email,
+    //   subject: 'Your password reset token (valid for 10 minutes)',
+    //   message,
+    // });
 
     res.status(200).json({
       status: 'success',
