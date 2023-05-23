@@ -19,11 +19,12 @@ const factory = require('./handlerFactory');
 //   },
 // });
 
-// yesto garera chai buffer ma store huncha which is way more efficient.
+// yesto garera chai buffer ma store huncha which is way more efficient,
+// and yo buffer is then available at req.file.buffer which is used in resizeUserPhoto method below
 const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
-  console.log(file);
+  // console.log(file);
   if (file.mimetype.startsWith('image')) {
     cb(null, true);
   } else {
@@ -43,7 +44,7 @@ exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
 
   if (!req.file) return next();
 
-  // this line is neccessary because when we use buffer to store the image the filename
+  // this line is neccessary because when we use buffer to store the image, the filename
   // is not defined but we use it in our next middleware stack ie updateMe in filteredBody
   // part of code so it is necessary to define it here.
   req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
@@ -88,6 +89,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
   // 2) Filtered out unwanted field names that are not allowed to be updated
   const filteredBody = filterObj(req.body, 'name', 'email');
   if (req.file) {
+    console.log(req.file);
     filteredBody.photo = req.file.filename;
   }
 

@@ -20,28 +20,22 @@ const upload = multer({
   fileFilter: multerFilter,
 });
 
-exports.aliasTopTours = (req, res, next) => {
-  req.query.limit = '5';
-  req.query.sort = '-ratingsAverage,price';
-  req.query.fields = 'name,price,ratingsAverage,summary,difficulty';
-  next();
-};
-
+// kunai euta schema ma multiple images upload garna ko lagi ja euta ma maxCount 1 vayo
+// arko field lai maxCount 3 vayo yesto bela upload.fields() method use garne
 exports.uploadTourImages = upload.fields([
   { name: 'imageCover', maxCount: 1 },
   { name: 'images', maxCount: 3 },
 ]);
 
-// upload.single('image); // produces req.file
-// upload.array('images', 5); // produces req.files
+// upload.single('image); // produces req.file -> euta matra image upload garna ko lagi
+// upload.array('images', 5); // produces req.files -> multiple images upload garna ko lagi
 
 exports.resizeTourImages = catchAsync(async (req, res, next) => {
-  console.log(req);
+  // console.log(req.files);
 
   if (!req.files.imageCover || !req.files.images) return next();
 
   // 1) Cover image
-
   req.body.imageCover = `tour-${req.params.id}-${Date.now()}-cover.jpeg`;
   await sharp(req.files.imageCover[0].buffer)
     .resize(2000, 1333)
@@ -69,6 +63,13 @@ exports.resizeTourImages = catchAsync(async (req, res, next) => {
   // console.log(req.body);
   next();
 });
+
+exports.aliasTopTours = (req, res, next) => {
+  req.query.limit = '5';
+  req.query.sort = '-ratingsAverage,price';
+  req.query.fields = 'name,price,ratingsAverage,summary,difficulty';
+  next();
+};
 
 // ROUTE HANDLERS FOR TOURS
 exports.getAllTours = factory.getAll(Tour);

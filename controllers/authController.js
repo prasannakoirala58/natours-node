@@ -78,6 +78,7 @@ exports.login = catchAsync(async (req, res, next) => {
 
 exports.logout = (req, res) => {
   res.clearCookie('jwt');
+
   // res.cookie('jwt', 'loggedout', {
   //   expires: new Date(Date.now() + 10 * 1000),
   //   httpOnly: true
@@ -95,6 +96,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 
   if (!token) {
+    res.redirect('/login');
     return next(new AppError('You are not logged in! Please log in to get access.', 401));
   }
 

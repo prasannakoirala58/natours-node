@@ -38,6 +38,7 @@ app.use(
 // Serving static files
 // app.use(express.static(`${__dirname}/public`));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/js')));
 
 // Set Security HTTP headers using helmet package from github.
 // See the github docs for helmet for more info on security headers for your apps.
