@@ -52,7 +52,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   console.log(newUser);
 
   const url = `${req.protocol}://${req.get('host')}/me`;
-  console.log(url);
+  // console.log(url);
   await new Email(newUser, url).sendWelcome();
 
   createSendToken(newUser, 201, req, res);
@@ -186,7 +186,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     // console.log(user);
 
     const em = await new Email(user, resetURL).sendPasswordReset();
-    console.log(em);
+    // console.log(em);
 
     res.status(200).json({
       status: 'success',
@@ -233,7 +233,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   // 3) Update the changedPasswordAt property for the current user
 
   // 4) Log the user in, send JWT
-  createSendToken(user, 200, res);
+  createSendToken(user, 200, req, res);
 });
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
