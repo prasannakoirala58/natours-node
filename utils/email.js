@@ -14,7 +14,6 @@ module.exports = class Email {
   // Sendgrid
   newTransport() {
     if (process.env.NODE_ENV !== 'development') {
-      console.log('FUCK mug');
       return nodemailer.createTransport({
         service: 'SendGrid',
         auth: {
