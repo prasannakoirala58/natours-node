@@ -11,7 +11,7 @@ export const bookTour = async (tourId) => {
     const session = await axios(
       `http://localhost:3000/api/v1/bookings/checkout-session/${tourId}`
     );
-    console.log(session);
+    // console.log(session);
 
     // redirect to success.url
     if (session.data.status === 'success') {

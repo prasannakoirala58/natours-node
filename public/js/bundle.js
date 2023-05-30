@@ -11360,8 +11360,9 @@ var bookTour = /*#__PURE__*/function () {
 
           case 3:
             session = _context.sent;
-            console.log(session); // redirect to success.url
 
+            // console.log(session);
+            // redirect to success.url
             if (session.data.status === 'success') {
               (0, _alerts.showAlert)('success', 'Redirection to url Successful');
               window.setTimeout(function () {
@@ -11374,21 +11375,21 @@ var bookTour = /*#__PURE__*/function () {
             // console.log('The session id is: ', session.data.session.id);
 
 
-            _context.next = 12;
+            _context.next = 11;
             break;
 
-          case 8:
-            _context.prev = 8;
+          case 7:
+            _context.prev = 7;
             _context.t0 = _context["catch"](0);
             console.log(_context.t0);
             (0, _alerts.showAlert)('error in making payment', _context.t0);
 
-          case 12:
+          case 11:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 8]]);
+    }, _callee, null, [[0, 7]]);
   }));
 
   return function bookTour(_x) {
