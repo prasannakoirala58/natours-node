@@ -11364,7 +11364,7 @@ var bookTour = /*#__PURE__*/function () {
             // console.log(session);
             // redirect to success.url
             if (session.data.status === 'success') {
-              (0, _alerts.showAlert)('success', 'Redirection to url Successful');
+              (0, _alerts.showAlert)('success', 'Redirecting to checkout...');
               window.setTimeout(function () {
                 location.assign(session.data.session.url);
               }, 1500);

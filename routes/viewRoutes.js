@@ -1,6 +1,7 @@
 const express = require('express');
 const viewsController = require('../controllers/viewsController');
 const authController = require('../controllers/authController');
+const bookingController = require('../controllers/bookingController');
 
 // Fix to error message while trying to load mapbox
 const CSP = 'Content-Security-Policy';
@@ -25,7 +26,12 @@ router.use((req, res, next) => {
 });
 
 // route for overview/root/home page
-router.get('/', authController.isLoggedIn, viewsController.getOverview);
+router.get(
+  '/',
+  bookingController.createBookingCheckout,
+  authController.isLoggedIn,
+  viewsController.getOverview
+);
 
 // route for a specific tour
 router.get('/tour/:slug', authController.isLoggedIn, viewsController.getTour);
@@ -35,6 +41,9 @@ router.get('/login', authController.isLoggedIn, viewsController.getLoginForm);
 
 // accounts
 router.get('/me', authController.protect, viewsController.getAccount);
+
+// my bookings
+router.get('/my-tours', authController.protect, viewsController.getMyTours);
 
 //
 router.post('/submit-user-data', authController.protect, viewsController.updateUserData);

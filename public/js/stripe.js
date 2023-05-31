@@ -15,7 +15,7 @@ export const bookTour = async (tourId) => {
 
     // redirect to success.url
     if (session.data.status === 'success') {
-      showAlert('success', 'Redirection to url Successful');
+      showAlert('success', 'Redirecting to checkout...');
       window.setTimeout(() => {
         location.assign(session.data.session.url);
       }, 1500);
