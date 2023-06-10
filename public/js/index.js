@@ -30,7 +30,7 @@ if (loginForm) {
 
 if (logoutBtn) logoutBtn.addEventListener('click', logout);
 
-if (userDataForm)
+if (userDataForm) {
   userDataForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const form = new FormData();
@@ -41,6 +41,7 @@ if (userDataForm)
 
     updateSettings(form, 'data');
   });
+}
 
 if (userPasswordForm)
   userPasswordForm.addEventListener('submit', async (e) => {

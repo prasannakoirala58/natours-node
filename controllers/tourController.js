@@ -178,7 +178,7 @@ exports.getToursWithin = catchAsync(async (req, res, next) => {
     startLocation: { $geoWithin: { $centerSphere: [[lng, lat], radius] } },
   });
 
-  console.log(distance, lat, lng, unit);
+  // console.log(distance, lat, lng, unit);
 
   res.status(200).json({
     status: 'success',
@@ -191,7 +191,7 @@ exports.getToursWithin = catchAsync(async (req, res, next) => {
 
 exports.getDistances = catchAsync(async (req, res, next) => {
   const { latlng, unit } = req.params;
-  console.log(unit);
+  // console.log(unit);
   const [lat, lng] = latlng.split(',');
 
   const multiplier = unit === 'mi' ? 0.001 : 0.000621371;

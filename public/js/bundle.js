@@ -11179,7 +11179,10 @@ var login = /*#__PURE__*/function () {
             _context.next = 3;
             return (0, _axios.default)({
               method: 'POST',
-              url: 'http://localhost:3000/api/v1/users/login',
+              // for development
+              // url: 'http://localhost:3000/api/v1/users/login',
+              // for production
+              url: '/api/v1/users/login',
               data: {
                 email: email,
                 password: password
@@ -11230,7 +11233,10 @@ var logout = /*#__PURE__*/function () {
             _context2.next = 3;
             return (0, _axios.default)({
               method: 'GET',
-              url: 'http://localhost:3000/api/v1/users/logout'
+              // for development
+              // url: 'http://localhost:3000/api/v1/users/logout',
+              // for production
+              url: '/api/v1/users/logout'
             });
 
           case 3:
@@ -11289,36 +11295,54 @@ var updateSettings = /*#__PURE__*/function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
-            url = type === 'password' ? 'http://localhost:3000/api/v1/users/updateMyPassword' : 'http://localhost:3000/api/v1/users/updateMe'; // console.log(url);
+            // for development
+            // const url =
+            //   type === 'password'
+            //     ? 'http://localhost:3000/api/v1/users/updateMyPassword'
+            //     : 'http://localhost:3000/api/v1/users/updateMe';
+            // for production
+            url = type === 'password' ? '/api/v1/users/updateMyPassword' : '/api/v1/users/updateMe';
+            console.log(url); // console.log(data);
 
-            _context.next = 4;
+            console.log(data.get('name'));
+            console.log(data.get('email'));
+            console.log(data.get('photo')); // Convert FormData to a regular JS object and then send it to the axios
+            // const formDataObject = {};
+            // for (let [key, value] of data.entries()) {
+            //   formDataObject[key] = value;
+            // }
+            // console.log(formDataObject.photo);
+            // console.log(data);
+
+            _context.next = 8;
             return (0, _axios.default)({
-              method: 'PATCH',
               url: url,
+              method: 'PATCH',
               data: data
             });
 
-          case 4:
+          case 8:
             res = _context.sent;
 
             if (res.data.status === 'success') {
               (0, _alerts.showAlert)('success', "".concat(type.toUpperCase(), " updated successfully!"));
             }
 
-            _context.next = 11;
+            _context.next = 16;
             break;
 
-          case 8:
-            _context.prev = 8;
+          case 12:
+            _context.prev = 12;
             _context.t0 = _context["catch"](0);
+            console.log(_context.t0);
             (0, _alerts.showAlert)('error', _context.t0.response.data.message);
 
-          case 11:
+          case 16:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 8]]);
+    }, _callee, null, [[0, 12]]);
   }));
 
   return function updateSettings(_x, _x2) {
@@ -11356,7 +11380,7 @@ var bookTour = /*#__PURE__*/function () {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return (0, _axios.default)("http://localhost:3000/api/v1/bookings/checkout-session/".concat(tourId));
+            return (0, _axios.default)("/api/v1/bookings/checkout-session/".concat(tourId));
 
           case 3:
             session = _context.sent;
@@ -11700,15 +11724,19 @@ if (loginForm) {
 }
 
 if (logoutBtn) logoutBtn.addEventListener('click', _login.logout);
-if (userDataForm) userDataForm.addEventListener('submit', function (e) {
-  e.preventDefault();
-  var form = new FormData();
-  form.append('name', document.getElementById('name').value);
-  form.append('email', document.getElementById('email').value);
-  form.append('photo', document.getElementById('photo').files[0]); // console.log(form);
 
-  (0, _updateSettings.updateSettings)(form, 'data');
-});
+if (userDataForm) {
+  userDataForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var form = new FormData();
+    form.append('name', document.getElementById('name').value);
+    form.append('email', document.getElementById('email').value);
+    form.append('photo', document.getElementById('photo').files[0]); // console.log(form);
+
+    (0, _updateSettings.updateSettings)(form, 'data');
+  });
+}
+
 if (userPasswordForm) userPasswordForm.addEventListener('submit', /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(e) {
     var passwordCurrent, password, passwordConfirm;
@@ -11788,7 +11816,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50821" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53893" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -24,7 +24,7 @@ const factory = require('./handlerFactory');
 const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
-  // console.log(file);
+  console.log(file);
   if (file.mimetype.startsWith('image')) {
     cb(null, true);
   } else {
@@ -76,6 +76,7 @@ exports.getMe = (req, res, next) => {
 exports.updateMe = catchAsync(async (req, res, next) => {
   // console.log(req.file);
   // console.log(JSON.parse(JSON.stringify(req.body))); // [ Object: null prototype ] hatauna ko lagi
+
   // 1) Create error if user POSTs password data
   if (req.body.password || req.body.passwordConfirm) {
     return next(
@@ -86,10 +87,16 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     );
   }
 
+  // console.log(req.body);
+  // console.log(req.file);
+  // console.log(req.headers['content-type']);
+
   // 2) Filtered out unwanted field names that are not allowed to be updated
   const filteredBody = filterObj(req.body, 'name', 'email');
+
+  // 3) Add photo property to filteredBody if req.file exists
   if (req.file) {
-    console.log(req.file);
+    // console.log(req.file);
     filteredBody.photo = req.file.filename;
   }
 
@@ -98,6 +105,8 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     new: true,
     runValidators: true,
   });
+
+  // console.log(updatedUser);
 
   res.status(200).json({
     status: 'success',

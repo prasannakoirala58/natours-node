@@ -8,6 +8,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -59,8 +60,8 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 // Body parser, reading data from the body into req.body in json format
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(express.json({ limit: '90kb' }));
+app.use(express.urlencoded({ extended: true, limit: '90kb' }));
 
 // Data sanitaization against NoSQL query injection
 //
@@ -90,6 +91,9 @@ app.use(
     ],
   })
 );
+
+// Compression middleware (to compress our responses to the client)
+app.use(compression());
 
 // Test middleware used in the beggining of the app. Still here because sometimes
 // some testing might be needed to be done before the app is deployed.

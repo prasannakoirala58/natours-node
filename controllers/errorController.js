@@ -7,7 +7,7 @@ const handleCastErrorDB = (err) => {
 
 const handleDuplicateFieldsDB = (err) => {
   const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
-  console.log(value);
+  // console.log(value);
 
   const message = `Duplicate field value: ${value}. Please use another value!`;
   return new AppError(message, 400);
@@ -35,7 +35,7 @@ const sendErrorDev = (err, req, res) => {
       stack: err.stack,
     });
   }
-  console.log(err);
+  //console.log(err);
   // B) Rendered website error message using pug
   console.error('ERROR 💥', err);
   return res.status(err.statusCode).render('error', {
@@ -67,7 +67,7 @@ const sendErrorProd = (err, req, res) => {
   // B) RENDERED WEBSITE error message using pug
   // A) Operational, trusted error: send message to client
   if (err.isOperational) {
-    console.log(err);
+    // console.log(err);
     return res.status(err.statusCode).render('error', {
       title: 'Something went wrong!',
       msg: err.message,

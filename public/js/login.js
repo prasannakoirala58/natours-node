@@ -7,7 +7,10 @@ export const login = async (email, password) => {
   try {
     const res = await axios({
       method: 'POST',
-      url: 'http://localhost:3000/api/v1/users/login',
+      // for development
+      // url: 'http://localhost:3000/api/v1/users/login',
+      // for production
+      url: '/api/v1/users/login',
       data: {
         email,
         password,
@@ -29,7 +32,10 @@ export const logout = async () => {
   try {
     const res = await axios({
       method: 'GET',
-      url: 'http://localhost:3000/api/v1/users/logout',
+      // for development
+      // url: 'http://localhost:3000/api/v1/users/logout',
+      // for production
+      url: '/api/v1/users/logout',
     });
     // reload garna yo code ho...page after sending a cookie with no jwt token because reload navaye
     // simply browser ko cache bata page aauna sakcha jasle feri log out gare pani logged in nai
