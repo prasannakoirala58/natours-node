@@ -11,30 +11,30 @@ module.exports = class Email {
     this.from = `Prasanna Koirala <${process.env.EMAIL_FROM}>`;
   }
 
-  // Sendgrid
   newTransport() {
     if (process.env.NODE_ENV !== 'development') {
+      // Create a SMTP transporter object
       return nodemailer.createTransport({
-        service: 'SendGrid',
+        host: process.env.EMAIL_HOST,
+        port: process.env.EMAIL_PORT,
         auth: {
-          user: process.env.SENDGRID_USERNAME,
-          pass: process.env.SENDGRID_PASSWORD,
+          user: process.env.EMAIL_USERNAME,
+          pass: process.env.EMAIL_PASSWORD,
         },
+        tls: {
+          rejectUnauthorized: false,
+        },
+        // WE need to activate something called "less secure app" option in gmail.
       });
     }
 
-    // Create a SMTP transporter object
+    // Sendgrid
     return nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: process.env.EMAIL_PORT,
+      service: 'SendGrid',
       auth: {
-        user: process.env.EMAIL_USERNAME,
-        pass: process.env.EMAIL_PASSWORD,
+        user: process.env.SENDGRID_USERNAME,
+        pass: process.env.SENDGRID_PASSWORD,
       },
-      tls: {
-        rejectUnauthorized: false,
-      },
-      // WE need to activate something called "less secure app" option in gmail.
     });
   }
 

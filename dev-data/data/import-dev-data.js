@@ -5,7 +5,8 @@ const Tour = require('./../../models/tourModel');
 const User = require('./../../models/userModel');
 const Review = require('./../../models/reviewModel');
 
-dotenv.config({ path: './config.env' });
+// dotenv.config({ path: './config.env' });
+dotenv.config({ path: '../../config.env' });
 
 const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
 
@@ -24,6 +25,7 @@ const users = JSON.parse(fs.readFileSync(`${__dirname}/users.json`, 'utf-8'));
 const reviews = JSON.parse(fs.readFileSync(`${__dirname}/reviews.json`, 'utf-8'));
 
 // IMPORT DATA INTO DATABASE
+// Yo chalauna ko lagi --import flag use garera yo file run garne ho
 const importData = async () => {
   try {
     await Tour.create(tours);
