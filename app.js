@@ -93,7 +93,7 @@ app.use(
 );
 
 // Compression middleware (to compress our responses to the client)
-app.use(compression());
+app.use(compression()); //
 
 // Test middleware used in the beggining of the app. Still here because sometimes
 // some testing might be needed to be done before the app is deployed.
